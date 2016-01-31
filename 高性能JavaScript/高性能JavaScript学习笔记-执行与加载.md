@@ -1,6 +1,6 @@
 ﻿# 高性能JavaScript学习笔记-执行与加载
 
-标签（空格分隔）： JavaScript 读书摘要
+标签：JavaScript 读书摘要
 
 ---
 
