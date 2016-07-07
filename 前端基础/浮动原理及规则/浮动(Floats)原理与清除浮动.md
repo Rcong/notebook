@@ -25,7 +25,7 @@
   height: 100px;
 }
 ```
-![clipboard.png](/img/bVyTEA)
+![clipboard.png](https://sfault-image.b0.upaiyun.com/240/264/2402642223-577d1c30844e7)
 
 ##浮动元素的左(右)外边界不能超出其父元素的左(右)内边界。##
 
