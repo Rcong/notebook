@@ -66,7 +66,7 @@
   height: 100px;
 }
 ```
-![clipboard.png](/img/bVyTFn)
+![clipboard.png](https://sfault-image.b0.upaiyun.com/368/077/3680778964-577d1f45e911f)
 
 ##浮动元素不会重叠。
 
@@ -82,7 +82,7 @@
 表现为当一个浮动元素往左(右)靠的时候,在这个元素左(右)边已经存在一个浮动元素,他们不会重叠,后来者紧挨着先来者排列。如果浮动元素们的总宽度已经超过父元素的宽度,浮动元素之间也不会重叠,依照```HTML```结构的顺序,从在一行排列不下的浮动元素开始会移动到下一行。
 
 [例子戳这里!](http://codepen.io/Rcong/pen/QErjXa)
-![clipboard.png](/img/bVyTL0)
+![clipboard.png](https://sfault-image.b0.upaiyun.com/113/134/1131348872-577d2c703bd8f)
 
 ## **浮动元素的顶端不能比其父元素的内顶端更高,不能比之前出现的浮动元素顶端高。**
 
@@ -92,7 +92,7 @@
 对于下图右边的例子,```sub2```在```sub1```下面,```sub1```右边的空间已经不足以容纳```sub2```,但是足够容纳```sub3```,而```sub3```没有上浮,那是因为他的的顶端就不能超过```sub2```的顶端,这个例子足以印证**浮动元素的顶端不能比之前出现的浮动元素顶端高**。
 
 [例子戳这里!](http://codepen.io/Rcong/pen/zBdABQ)
-![clipboard.png](/img/bVyWgo)
+![clipboard.png](https://sfault-image.b0.upaiyun.com/185/836/1858363307-577e55af59bf1)
 
 
 #清除浮动
