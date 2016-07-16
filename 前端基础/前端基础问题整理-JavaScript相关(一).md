@@ -206,13 +206,13 @@ for (var i = 0; i < elems.length; i++) {
 
 * ```var person = new Person()```
 
-```new```一个```Person```的实例对象。
+实例化一个```Person```的对象。
 
 ## ```.call```和```.apply```的区别是什么?
 
-```.call```和```.apply```的共同点是都是用来改变函数体内```this```对象的值。
+共同点:```call()```和```apply()```都是用来改变函数体内```this```对象的值。
 
-区别是第二个参数不一样。```apply()```的第二个参数是一个类数组对象```arguments```,参数都是以数组的形式传入,而```call()```,传递给他的是一系列参数。例如
+区别:第二个参数不一样。```apply()```的第二个参数是一个类数组对象```arguments```,参数都是以数组的形式传入,而```call()```,传递给他的是一系列参数。例如
 ```
 Math.max.call(null, 1, 2, 3, 4);
 //4
@@ -225,7 +225,7 @@ Math.max.apply(null, [1, 2, 3, 4]);
 
 > ```Function.prototype.bind```方法会创建一个新函数，当这个新函数被调用时，它的```this```值是传递给```bind()```的第一个参数, 它的参数是```bind()```的其他参数和其原本的参数.
 
-```Function.prototype.bind```的实现类似于:
+### ```Function.prototype.bind```的实现类似于:
 
 ```javascript
 Function.prototype.bind = function (scope) {
@@ -236,7 +236,7 @@ Function.prototype.bind = function (scope) {
 }
 ```
 
-```Function.prototype.bind```的作用
+### ```Function.prototype.bind```的作用
 
 * 创建绑定函数
 * 一些函数的参数常常也是函数，给当做参数的函数绑定```this```值确保参数函数执行时有正确的```this```指向。
