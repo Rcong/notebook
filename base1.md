@@ -42,7 +42,8 @@
 ## ```js```跨域的解决方案
 
 ### ```JSONP```
-原理:网页通过添加一个```<script>```元素，向服务器请求```JSON```数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。
+#### 原理
+网页通过添加一个```<script>```元素，向服务器请求```JSON```数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。
 
 #### 优点
 * 兼容性好，简单易用，支持浏览器与服务器双向通信
@@ -68,6 +69,20 @@
 
 *  必须监听子窗口```window.name```属性的变化，影响网页性能。
 
-### ```window.postMessage```
+### 跨文档通信 ```API（Cross-document messaging）```
+使用```HTML5```的新```API```-```window.postMessage```也能完成跨域，这个```API```为```window```新增一个```postMessage```的方法，允许跨窗口通信，不论这两个窗口是否同源。这个方法通过其他窗口的一个引用来发消息，
+```
+var popup = window.open('https://github.com/Rcong', 'msg');
+popup.postMessage('post a message!', 'https://github.com/Rcong');
+```
+被引用的那个窗口监听```message```事件
+```
+window.addEventListener("message", function(e) {
+  console.log(e.data);
+}, false);
+```
+就能取得传递过来的数据。
 
-未完待续......
+
+## ```ajax```能否跨域?
+可以。通过```CORS```，跨域资源共享```(CORS)```允许浏览器向跨源服务器发送```AJAX```请求。需由服务器向浏览器发送一个响应标头```Access-Control-Allow-Origin```。如果浏览器检测到相应的设置，就可以允许```Ajax```进行跨域的访问。
