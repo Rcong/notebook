@@ -87,6 +87,41 @@ window.addEventListener("message", function(e) {
 ## ```ajax```能否跨域?
 可以。通过```CORS```，跨域资源共享```(CORS)```允许浏览器向跨源服务器发送```AJAX```请求。需由服务器向浏览器发送一个响应标头```Access-Control-Allow-Origin```。如果浏览器检测到相应的设置，就可以允许```Ajax```进行跨域的访问。
 
+
+## 上传跨域资源的图片的几种方案
+
+### 表单上传
+用传统的```form```表单来上传，使用```form```表单的```input[type=”file”]```控件，可以打开系统的文件选择对话框，从而达到选择文件并上传的目的。
+
+#### 优点
+* 多浏览器兼容。
+
+#### 缺点
+* 不支持多图上传、分段上传等高级特性。
+
+### ```Ajax```无刷新上传
+本质上与表单上传相同，只是把表单里的内容提出来采用```Ajax```提交，并且由前端决定请求结果回传后的展示结果，不用像直接表单上传那样刷新和跳转页面。
+
+### 截图粘贴上传
+
+#### 原理
+监听粘贴事件 -> 获取剪切板中的数据 -> 如果是一张图片，则触发上传事件
+
+当进行粘贴(右键```paste/ctrl+v```)操作时，触发剪贴板事件```paste```，从系统剪切板获取内容，而系统剪切板的数据在不同浏览器保存在不同的位置
+
+* ```IE```内核：```windows.clipboardData```
+* 其它浏览器：```e.originalEvent.clipboardData```
+
+#### 缺点
+* 浏览器支持力度不够,目前对剪切板支持的比较好的只有```Chrome```的高版本浏览器，```IE```的```window```对象的```clipboardData```和```FF```事件对象的```clipboardData```，都无法获取图片文。
+
+### 拖拽上传
+利用了```HTML5```的两个新的属性
+* ```Drag and Drop```[(http://caniuse.com/#search=drag)](http://caniuse.com/#search=drag)
+* ```File API```[(http://caniuse.com/#search=file)](http://caniuse.com/#search=file)
+
+
+
 ## ```AMD```、```CMD```、```CommonJS```规范
 
 ### ```AMD```
@@ -190,3 +225,4 @@ define(function( $ ){
 **CSS**表达式计算频率高，对页面性能产生影响。
 
 * 不要在```HTML```中缩放图像
+
