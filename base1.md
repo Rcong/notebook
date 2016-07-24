@@ -120,6 +120,35 @@ window.addEventListener("message", function(e) {
 * ```Drag and Drop```[(http://caniuse.com/#search=drag)](http://caniuse.com/#search=drag)
 * ```File API```[(http://caniuse.com/#search=file)](http://caniuse.com/#search=file)
 
+#### 核心代码
+```
+var textarea = document.querySelector('textarea');
+textarea.addEventListener('drop', function(e){
+  e.stopPropagation();
+  e.preventDefault();
+  var files = e.dataTransfer.files;
+  for (var i = 0, len = files.length; i < len; i++) {
+      var file = files[i];
+      if(!/^image*/.test(file.type)){
+          return;
+      }
+      var fileReader = new FileReader();
+      fileReader.onload = function(){
+          //调用上传图片的方法
+      }
+      fileReader.readAsDataURL(file);
+  }
+});
+```
+
+#### 原理
+* 监听上传区域的```drop```事件
+* 触发后通过```e.dataTransfer.files```获取拖拽文件列表
+* 根据文件对象中```file.type```判断上传类型
+* 创建```FileReader```对象使用二进制方式读取图片，当读取完之后执行上传图片的方法。
+
+#### 缺点
+* 只有高级浏览器支持
 
 
 ## ```AMD```、```CMD```、```CommonJS```规范
