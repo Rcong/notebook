@@ -10,3 +10,4 @@
 
 ## 咸鱼笔记
 * [XSS处理]()
+* [阻塞浏览器渲染的资源](https://github.com/Rcong/Reading/blob/master/%E9%98%BB%E5%A1%9E%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E8%B5%84%E6%BA%90.md)
