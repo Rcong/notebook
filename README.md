@@ -12,4 +12,5 @@
 * [XSS处理](https://github.com/Rcong/Reading/blob/master/Note/XSS%E5%A4%84%E7%90%86.md)
 * [阻塞浏览器渲染的资源](https://github.com/Rcong/Reading/blob/master/Note/%E9%98%BB%E5%A1%9E%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E7%9A%84%E8%B5%84%E6%BA%90.md)
 * [浏览器的渲染过程](https://github.com/Rcong/Reading/blob/master/Note/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B.md)
+* [React组件间的通信](https://github.com/Rcong/Reading/blob/master/Note/React%E7%BB%84%E4%BB%B6%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1.md)
 
