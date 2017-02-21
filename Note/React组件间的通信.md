@@ -1,5 +1,24 @@
 # 父组件 => 子组件
-- 通过Props向子组件传递
+- 父组件可以向子组件通过传```props```的方式，向子组件进行通讯
+```
+class Parent extends Component {
+    state = {
+        info: 'Hello'
+    };
+
+    render() {
+        return <Child info='this.state.info'/>;
+    }
+}
+
+class Child extends Component {
+    render() {
+        return (
+            <div>{this.props.info}</div>
+        )
+    }
+}
+```
 - 使用Ref属性
 
 # 子组件 => 父组件
