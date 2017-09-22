@@ -11,5 +11,5 @@ var arrayPairSum = function(nums) {
 };
 
 let isArray = (obj) => {
-    return Object.prototype.toString.call([]).slice(8, -1).toLowerCase() === 'array';
+    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase() === 'array';
 }
