@@ -65,12 +65,16 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
-let arr = ['夸克', '小木', '家葱', '九月', '橙子', '星池'];
+var arr = ['夸克', '小木', '家葱', '九月', '橙子', '星池'];
 
-console.log(arr.map( item => item + ' 中流砥柱'));
+console.log(arr.map(function (item) {
+  return item + ' 中流砥柱';
+}));
 
 /***/ })
 /******/ ]);
