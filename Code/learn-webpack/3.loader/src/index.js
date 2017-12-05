@@ -1,4 +1,4 @@
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-let arr = ['夸克', '小木', '家葱', '九月', '橙子', '星池'];
-
-console.log(arr.map( item => item + ' 中流砥柱'));
+ReactDOM.render(<h1>呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵</h1>, document.querySelector('#root'));
