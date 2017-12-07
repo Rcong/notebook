@@ -5,16 +5,14 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        'webpack/hot/dev-server',
-        'webpack-dev-server/client?http://localhost:8080',
-        app: './src/index.js',
-        helper: './src/helper.js'
+        app: './src/index.js'
+    },
+    output: {
+        filename: '[name].bundle.js',
+        publicPath: '/',
+        path: path.resolve(__dirname, 'dist')
     },
     devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist',
-        hot: true
-    },
     module: {
         rules: [
             {
@@ -23,20 +21,17 @@ module.exports = {
                     path.resolve(__dirname, "src")
                 ],// test 和 include 具有相同的作用，都是必须匹配选项
                 exclude: /node_modules/,// exclude 是必不匹配选项（优先于 test 和 include）
-                loader: "babel-loader?presets[]=env"
+                loader: "babel-loader?presets[]=env&presets[]=react"
             }
         ]
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            title: '6.source_map'
+            title: '7.Demo',
+            template: 'index.html',
+            inject: true
         }),
         new webpack.HotModuleReplacementPlugin()
-    ],
-    output: {
-        filename: '[name].bundle.js',
-        publicPath: '/',
-        path: path.resolve(__dirname, 'dist')
-    }
+    ]
 };

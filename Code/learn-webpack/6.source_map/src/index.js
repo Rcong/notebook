@@ -6,7 +6,7 @@ function component() {
 
     element.innerHTML = '6.source_map';
 
-    btn.innerHTML = 'Check the console';
+    btn.innerHTML = 'Check the console 111';
     btn.onclick = helper;
 
     element.appendChild(btn);

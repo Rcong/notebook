@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node server.js",
-    "start": "webpack-dev-server"
+    "build": "webpack --config webpack.config.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "MIT",
@@ -24,7 +24,6 @@
     "react-dom": "^16.1.1"
   },
   "devDependencies": {
-    "express": "^4.16.2",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^1.12.2",
     "webpack-dev-server": "^2.9.5"
