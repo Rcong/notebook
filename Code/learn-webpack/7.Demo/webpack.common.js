@@ -7,9 +7,10 @@ module.exports = {
     entry: {
         app: './src/index.js',
         another: './src/another.js',
+        vendor: ['react', 'react-dom']
     },
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name]_[chunkhash:4].js',
         publicPath: '/',
         path: path.resolve(__dirname, 'dist')
     },
@@ -31,6 +32,17 @@ module.exports = {
             title: '7.Demo',
             template: 'index.html',
             inject: true
-        })
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: function(module){
+                return module.context && module.context.indexOf("node_modules") !== -1;
+            }
+        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: "manifest",
+        //     minChunks: Infinity
+        // })
     ]
 };
