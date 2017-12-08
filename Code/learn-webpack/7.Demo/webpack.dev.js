@@ -4,12 +4,10 @@ const webpack = require('webpack');
 
 module.exports = merge(common, {
     devtool: 'inline-source-map',
-    devServer: {
-        contentBase: './dist',
-        hot: true,
-        host: 'localhost'
-    },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('dev')
+        })
     ]
 });

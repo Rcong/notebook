@@ -1,17 +1,20 @@
 const webpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
-const config = require('./webpack.config.js');
-const options = {
-  contentBase: './dist',
-  hot: true,
-  host: 'localhost'
+
+const devConfig = require('./webpack.dev.js');
+const prodConfig = require('./webpack.prod.js');
+const args = require('minimist')(process.argv.slice(2));
+
+
+let config = args.env === 'prod' ? prodConfig : devConfig;
+let options = {
+    contentBase: './dist',
+    hot: true,
+    host: 'localhost'
 };
 
 webpackDevServer.addDevServerEntrypoints(config, options);
 
-const compiler = webpack(config);
-const server = new webpackDevServer(compiler, options);
-
-server.listen(3000, 'localhost', () => {
-  console.log('listening on port 3000');
+new webpackDevServer(webpack(config), options).listen(3000, 'localhost', () => {
+    console.log('listening on port 3000');
 });

@@ -5,14 +5,14 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: './src/index.js'
+        app: './src/index.js',
+        another: './src/another.js',
     },
     output: {
         filename: '[name].bundle.js',
         publicPath: '/',
         path: path.resolve(__dirname, 'dist')
     },
-    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -31,7 +31,6 @@ module.exports = {
             title: '7.Demo',
             template: 'index.html',
             inject: true
-        }),
-        new webpack.HotModuleReplacementPlugin()
+        })
     ]
 };

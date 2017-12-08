@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "start": "node server.js"
+    "dev": "node server.js --env=dev",
+    "prod": "node server.js --env=prod"
   },
   "author": "",
   "license": "MIT",
