@@ -10,7 +10,7 @@ module.exports = {
         vendor: ['react', 'react-dom']
     },
     output: {
-        filename: '[name]_[chunkhash:4].js',
+        filename: '[name]_[hash:4].js',
         publicPath: '/',
         path: path.resolve(__dirname, 'dist')
     },
@@ -33,16 +33,11 @@ module.exports = {
             template: 'index.html',
             inject: true
         }),
-        new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
             minChunks: function(module){
                 return module.context && module.context.indexOf("node_modules") !== -1;
             }
-        }),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: "manifest",
-        //     minChunks: Infinity
-        // })
+        })
     ]
 };
