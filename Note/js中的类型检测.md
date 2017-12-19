@@ -1,6 +1,7 @@
 # typeof
 
-基本类型:undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、Symbol
+基本类型:undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、Symbol中除了null都返回正确结果。
+引用类型:Array、Object、Function、Date中除了Function都返回错误结果。
 
 # instanceof
 
