@@ -12,8 +12,8 @@ var readFile = function (fileName){
 function * gen(){
     var f1 = yield readFile('/Users/raycloud/repo/Reading/練習/Generator/demo.txt');
     var f2 = yield readFile(f1.toString());
-    console.log(f1.toString());
-    console.log(f2.toString());
+    console.info(f1.toString());
+    console.info(f2.toString());
 };
 
 var g = gen();

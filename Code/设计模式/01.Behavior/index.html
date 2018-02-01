@@ -103,23 +103,23 @@
         var imgs = document.querySelectorAll('ul img');
 
         function setPreviewBehavior(subjects){
-        var previewEvent = document.createEvent('Event');
-        previewEvent.initEvent('preview', true, true);
-        
-        if(!Array.isArray(subjects)){
-            if(subjects.length) subjects = Array.from(subjects);
-            else subjects = [subjects];
-        }
-        
-        previewEvent.previewTargets = subjects.map(function(evt){
-            return evt.src;
-        });
-        
-        subjects.forEach(function(subject){
-            subject.preview = function(){
-            subject.dispatchEvent(previewEvent);
+            var previewEvent = document.createEvent('Event');
+            previewEvent.initEvent('preview', true, true);
+            
+            if(!Array.isArray(subjects)){
+                if(subjects.length) subjects = Array.from(subjects);
+                else subjects = [subjects];
             }
-        });
+            
+            previewEvent.previewTargets = subjects.map(function(evt){
+                return evt.src;
+            });
+            
+            subjects.forEach(function(subject){
+                subject.preview = function(){
+                    subject.dispatchEvent(previewEvent);
+                }
+            });
         }
 
         setPreviewBehavior(imgs);
@@ -142,29 +142,29 @@
         });
 
         imgList.addEventListener('preview', function(evt){
-        var src = evt.target.src,
-            imgs = evt.previewTargets;
-        previewMask.style.display = 'block';
-        previewImage.src = src;
-        
-        var idx = imgs.indexOf(src);
-        
-        function updateButton(idx){
-            previewPrevious.style.display = idx ? 'block' : 'none';
-            previewNext.style.display = idx < imgs.length - 1 ? 'block' : 'none';
-        }
-        
-        updateButton(idx);
-        
-        previewPrevious.onclick = function(evt){
-            previewImage.src = imgs[--idx];
+            var src = evt.target.src,
+                imgs = evt.previewTargets;
+            previewMask.style.display = 'block';
+            previewImage.src = src;
+            
+            var idx = imgs.indexOf(src);
+            
+            function updateButton(idx){
+                previewPrevious.style.display = idx ? 'block' : 'none';
+                previewNext.style.display = idx < imgs.length - 1 ? 'block' : 'none';
+            }
+            
             updateButton(idx);
-        }
-        
-        previewNext.onclick = function(evt){
-            previewImage.src = imgs[++idx];
-            updateButton(idx);
-        }
+            
+            previewPrevious.onclick = function(evt){
+                previewImage.src = imgs[--idx];
+                updateButton(idx);
+            }
+            
+            previewNext.onclick = function(evt){
+                previewImage.src = imgs[++idx];
+                updateButton(idx);
+            }
         });
 
     </script>
