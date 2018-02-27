@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSS Grid</title>
+        <style>
+            .wrapper {
+                display: grid;
+                grid-template-columns: 200px 1fr 200px;
+                grid-template-rows: 100px 1fr 50px;
+                min-height: 100vh;
+                height: 100vh;
+            }
+            .wrapper div {
+                background: #ffd8a8;
+                opacity: 0.5;
+                border: 1px solid #ffa94d;
+            }
+            .header {
+                grid-column: 1 / 4;
+                grid-row: 1 / 2;
+            }
+            .footer {
+                grid-column: 1 / 4;
+                grid-row: 3 / 4;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">header</div>
+            <div class="left-side">left-side</div>
+            <div class="main">main</div>
+            <div class="right-side">right-side</div>
+            <div class="footer">footer</div>
+          </div>
+    </body>
+</html>
