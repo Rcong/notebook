@@ -55,6 +55,78 @@
 ![grid_area](http://7xrunf.com1.z0.glb.clouddn.com/blog/cssgrid/grid_area.png)
 
 
+# 实例
+
+## 基本例子
+
+使用CSS Grid来布局的时候，设置一个Dom元素为父容器，然后设置其属性```display```为```grid```、```subgrid```、```inline-grid```的其中一项，则这个Dom元素的子元素就会就会成为网格项目（grid item）,给父容器设置```grid-template-rows```与```grid-template-columns```属性来规定网格的行与列，这样一个基本的网格布局就形成了。
+
+```
+.wrapper {
+    display: grid;
+    grid-template-columns: 50px 100px 200px;
+    grid-template-rows: 100px 200px;
+}
+.wrapper div {
+    background: #ffd8a8;
+    opacity: 0.5;
+    border: 1px solid #ffa94d;
+}
+```
+![demo1](http://7xrunf.com1.z0.glb.clouddn.com/blog/cssgridcss_grid_demo.png)
+
+其中```grid-template-columns: 50px 100px 200px;```代表设置3列，每列分别为50px 100px 200px，如果没有则默认一列，宽度撑满父元素。```grid-template-rows: 100px 200px;```也是类似，代表两行，分别为100px和200px。```grid-template-columns```与```grid-template-rows```还有更丰富的设置样式方式:
+
+```
+//一列100px，剩余一列填满屏幕剩下区域
+grid-template-columns: 100px 1fr;
+//自定义网格线名字
+grid-template-columns: [linename] 100px;
+//自定义网格线多个名字
+grid-template-columns: [linename1] 100px [linename2 linename3];
+//最小100px, 最大满屏
+grid-template-columns: minmax(100px, 1fr);
+//最大值不超过屏宽40%
+grid-template-columns: fit-content(40%);
+//重复三列200px
+grid-template-columns: repeat(3, 200px);
+```
+
+详情参考[MDN grid-template-columns](https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-template-columns)
+
+## 圣杯布局
+```css
+.wrapper {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    grid-template-rows: 100px 1fr 50px;
+    min-height: 100vh;
+    height: 100vh;
+}
+.wrapper div {
+    background: #ffd8a8;
+    opacity: 0.5;
+    border: 1px solid #ffa94d;
+}
+.header {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+}
+.footer {
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+}
+```
+```html
+<div class="wrapper">
+    <div class="header">header</div>
+    <div class="left-side">left-side</div>
+    <div class="main">main</div>
+    <div class="right-side">right-side</div>
+    <div class="footer">footer</div>
+</div>
+```
+
 # 参考
 - [MDN 网格布局](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Grid_Layout)
 - [CSS Grid 布局完全指南(图解 Grid 详细教程)](http://www.css88.com/archives/8510)
