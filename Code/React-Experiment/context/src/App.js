@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import './App.css';
-
+import OneTrade from 'COMPONENT/OneTrade';
+import styles from 'SRC/styles.scss';
 class App extends Component {
+
+    state = {
+        theme: 'orange'
+    }
+
+    toggleTheme = () => {
+        this.setState(({theme}) => ({
+            theme: theme === 'light' ? 'orange' : 'light',
+        }))
+    }
+
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                <h1>React Demo</h1>
+                <OneTrade theme={styles[this.state.theme]}/>
+                <button onClick={this.toggleTheme}>toggle theme</button>
             </div>
         );
     }
