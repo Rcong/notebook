@@ -29,6 +29,7 @@ const mapLimit = require('async/mapLimit');
 })();
 
 async function downloadPdf(browser, item, items, callback) {
+    console.info(`开始下载 ${item.title}`);
     let articlePage = await browser.newPage();
     try {
         await articlePage.goto(item.href);

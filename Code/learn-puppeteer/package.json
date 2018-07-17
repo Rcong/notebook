@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "book": "node demo/book.js"
+        "book": "node demo/download_book.js",
+        "book:promise": "node demo/download_book_promise.js"
     },
     "author": "",
     "license": "MIT",
