@@ -19,7 +19,7 @@ const puppeteer = require('puppeteer');
     page.close();
 
     let startTime = new Date().getTime();
-    await downloadPdfs(browser, items);
+    await downloadPdfs(browser, items, 10);
     // .then(res => {
     //     let endTime = new Date().getTime();
     //     console.info(`下载任务完毕 总耗时: ${(endTime - startTime) / 1000}`);
@@ -73,7 +73,7 @@ async function downloadPdfs(browser, items, limit) {
         tasks.push(promises.slice(limit * index, limit * (index + 1)));
         index ++;
     }
-
+    console.info(tasks);
     tasks.map(task => p = p.then(() => Promise.all(task)));
 
     p.catch(error => {
