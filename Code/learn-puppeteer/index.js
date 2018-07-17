@@ -1,14 +1,39 @@
 const puppeteer = require('puppeteer');
-const ProgressBar = require('progress');
 const mapLimit = require('async/mapLimit');
 
-async function downloadPdf(browser, item, bar) {
+
+(async () => {
+
+    let browser = await puppeteer.launch({
+        executablePath: './chromium/Chromium.app/Contents/MacOS/Chromium',
+        ignoreHTTPSErrors: true,
+        headless: true
+    });
+
+    let page = await browser.newPage();
+    await page.goto('https://survivor.ruanyifeng.com/index.html');
+    await page.waitForSelector('.article', { timeout: 30000 });
+
+    let links = await page.evaluate(() => {
+        let items = [...document.querySelectorAll('.article .chapter-level-1 .chapter-link a')];
+        return links.map(item => { return { href: item.href.trim(), title: item.text } });
+    });
+    page.close();
+
+    let startTime = new Date().getTime();
+    downloadPdfs(browser, links).then(res => {
+        let endTime = new Date().getTime();
+        console.info(`下载任务完毕 总耗时: ${(endTime - startTime) / 1000}`);
+        browser.close();
+    });
+    
+})();
+
+async function downloadPdf(link, links, callback) {
     try {
         let articlePage = await browser.newPage()
 
-        bar.tick({ title: item.title });
-
-        await articlePage.goto(item.href);
+        await articlePage.goto(link.href);
 
         let scrollEnable = true
         let scrollStep = 1000 //每次滚动的步长
@@ -21,79 +46,26 @@ async function downloadPdf(browser, item, bar) {
             }, scrollStep)
         }
 
-        await articlePage.waitForSelector('.article', { timeout: 30000 });
-        await articlePage.pdf({path: `./pdf/${item.title}.pdf`, format: 'A4'});
+        let startTime = new Date().getTime();
+        await articlePage.pdf({path: `./pdf/${link.title}.pdf`});
+        let endTime = new Date().getTime();
+        console.info(`一共${links.length}份文件 => 下载...${links.indexOf(link) + 1}.. ${link.title}, 耗时: ${(endTime - startTime) / 1000}`);
 
         articlePage.close();
+        callback(null, link.title);
     } catch (error) {
-        console.info('下载失败', error);        
+        console.info(`${link.title}.pdf 下载失败`);    
+        callback(null, error);
     }
 }
 
-(async () => {
-
-    let browser = await puppeteer.launch({
-        executablePath: './chromium/Chromium.app/Contents/MacOS/Chromium',
-        ignoreHTTPSErrors: true,
-        headless: true
+function downloadPdfs(browser, links) {
+    return new Promise((resolve, reject) => {
+        // 并发量控制为 10
+        mapLimit(links, 10, (link, callback) => {
+            downloadPdf(link, links, callback);
+        }, (err, res) => {
+            err ? reject() : resolve(res);
+        });
     });
-
-    let page = await browser.newPage();
-    await page.goto('https://survivor.ruanyifeng.com/index.html');
-    await page.waitForSelector('.chapter-level-1', { timeout: 30000 });
-
-    let items = await page.evaluate(() => {
-        let links = [...document.querySelectorAll('.chapter-level-1 .chapter-item a')];
-        return links.map(link => { return { href: link.href.trim(), title: link.text } });
-    });
-
-    let bar = new ProgressBar('Download: :current/:total [:bar]  :title', {
-        complete: '=',
-        width: 100,
-        total: items.length
-    });
-
-    await downloadPdf(browser, items[0], bar);
-    page.close();
-    browser.close();
-
-    // mapLimit(items, 3, (item, callback) => {
-    //     downloadPdf(browser, item, bar);
-    //     callback(null);
-    // }, (err, res) => {
-    //     // browser.close();
-    // })
-
-    // items.forEach(item => downloadPdf(browser, item, bar));
-    
-    // 这里也可以使用promise all，但cpu可能吃紧，谨慎操作
-    // for (var i = 1; i < links.length; i++) {
-    //     let articlePage = await browser.newPage()
-
-    //     let a = links[i];
-
-    //     bar.tick({ title: a.title });
-
-    //     await articlePage.goto(a.href);
-
-    //     let scrollEnable = true
-    //     let scrollStep = 1000 //每次滚动的步长
-    //     while (scrollEnable) {
-    //         scrollEnable = await articlePage.evaluate(async scrollStep => {
-    //             let scrollTop = document.scrollingElement.scrollTop
-    //             document.scrollingElement.scrollTop = scrollTop + scrollStep
-    //             await new Promise(res => setTimeout(res, 200))
-    //             return document.body.clientHeight > scrollTop + 1080 ? true : false
-    //         }, scrollStep)
-    //     }
-
-    //     await page.waitForSelector('.chapter-level-1', { timeout: 30000 })
-
-    //     await articlePage.pdf({path: `./pdf/${a.name}.pdf`});
-
-    //     articlePage.close();
-    // }
-
-    // browser.close();
-
-})();
+}
