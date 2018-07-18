@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 const mapLimit = require('async/mapLimit');
 
-
 (async () => {
 
     let browser = await puppeteer.launch({
