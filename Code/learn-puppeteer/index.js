@@ -12,16 +12,16 @@ const mapLimit = require('async/mapLimit');
 
     let page = await browser.newPage();
     await page.goto('https://survivor.ruanyifeng.com/index.html');
-    await page.waitForSelector('.article', { timeout: 30000 });
+    await page.waitForSelector('.article', { timeout: 50000 });
 
-    let links = await page.evaluate(() => {
-        let items = [...document.querySelectorAll('.article .chapter-level-1 .chapter-link a')];
-        return links.map(item => { return { href: item.href.trim(), title: item.text } });
+    let items = await page.evaluate(() => {
+        let links = [...document.querySelectorAll('.article .chapter-level-1 .chapter-item a')];
+        return links.map(link => { return { href: link.href.trim(), title: link.text } });
     });
     page.close();
 
     let startTime = new Date().getTime();
-    downloadPdfs(browser, links).then(res => {
+    downloadPdfs(browser, items).then(res => {
         let endTime = new Date().getTime();
         console.info(`下载任务完毕 总耗时: ${(endTime - startTime) / 1000}`);
         browser.close();
@@ -29,11 +29,10 @@ const mapLimit = require('async/mapLimit');
     
 })();
 
-async function downloadPdf(link, links, callback) {
+async function downloadPdf(browser, item, items, callback) {
+    let articlePage = await browser.newPage();
     try {
-        let articlePage = await browser.newPage()
-
-        await articlePage.goto(link.href);
+        await articlePage.goto(item.href);
 
         let scrollEnable = true
         let scrollStep = 1000 //每次滚动的步长
@@ -47,23 +46,24 @@ async function downloadPdf(link, links, callback) {
         }
 
         let startTime = new Date().getTime();
-        await articlePage.pdf({path: `./pdf/${link.title}.pdf`});
+        await articlePage.pdf({path: `./pdf/${item.title}.pdf`});
         let endTime = new Date().getTime();
-        console.info(`一共${links.length}份文件 => 下载...${links.indexOf(link) + 1}.. ${link.title}, 耗时: ${(endTime - startTime) / 1000}`);
+        console.info(`一共${items.length}份文件 => 下载...${items.indexOf(item) + 1}.. ${item.title}, 耗时: ${(endTime - startTime) / 1000}`);
 
         articlePage.close();
-        callback(null, link.title);
+        callback(null, item.title);
     } catch (error) {
-        console.info(`${link.title}.pdf 下载失败`);    
-        callback(null, error);
+        console.info(`${item.title}.pdf 下载失败`);
+        articlePage.close(); 
+        callback(null);
     }
 }
 
-function downloadPdfs(browser, links) {
+function downloadPdfs(browser, items) {
     return new Promise((resolve, reject) => {
         // 并发量控制为 10
-        mapLimit(links, 10, (link, callback) => {
-            downloadPdf(link, links, callback);
+        mapLimit(items, 10, (item, callback) => {
+            downloadPdf(browser, item, items, callback);
         }, (err, res) => {
             err ? reject() : resolve(res);
         });
