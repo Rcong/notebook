@@ -5,12 +5,16 @@
     "main": "index.js",
     "scripts": {
         "book": "node demo/download_book.js",
-        "book:promise": "node demo/download_book_promise.js"
+        "book:promise": "node demo/download_book_promise.js",
+        "zhihu": "node demo/zhihu.js",
+        "screenshot": "node demo/screenshot.js"
     },
     "author": "",
     "license": "MIT",
     "dependencies": {
         "async": "^2.6.1",
+        "commander": "^2.16.0",
+        "inquirer": "^6.0.0",
         "progress": "^2.0.0",
         "puppeteer": "^1.6.0"
     }

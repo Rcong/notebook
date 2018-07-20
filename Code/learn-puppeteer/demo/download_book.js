@@ -46,7 +46,8 @@ async function downloadPdf(browser, item, items, callback) {
         }
 
         let startTime = new Date().getTime();
-        await articlePage.pdf({path: `./pdf/${item.title}.pdf`});
+        await articlePage.pdf({path: `./pdf/${item.title}.pdf`, format: 'A4'});
+        // await articlePage.screenshot({path: `./pdf/${item.title}.png`, fullPage: true});
         let endTime = new Date().getTime();
         console.info(`一共${items.length}份文件 => 下载...${items.indexOf(item) + 1}.. ${item.title}, 耗时: ${(endTime - startTime) / 1000}`);
 
