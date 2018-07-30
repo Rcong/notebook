@@ -36,7 +36,6 @@ router.get('/api/user', async ctx => {
 
 router.post('/api/editUser', async ctx => {
     let data = ctx.request.body;
-    console.info('data:', ctx.request);
     await User.update({
         lastName: data.lastName,
         firstName: data.firstName
@@ -53,3 +52,4 @@ app.use(router.routes());
 app.listen(8080 , () => {
     console.info('app start');
 });
+
