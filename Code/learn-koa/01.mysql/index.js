@@ -29,6 +29,12 @@ let User = sequelize.define('user', {
 
 app.use(bodyparser());
 
+router.post('/api/createUser', async(ctx) => {
+    let user = ctx.request.body;
+    await User.create(user);
+    ctx.body = user
+});
+
 router.get('/api/user', async ctx => {
     let { id } = ctx.query;
     ctx.body = await User.findOne({ where: { id } });
@@ -45,6 +51,12 @@ router.post('/api/editUser', async ctx => {
         }
     });
     ctx.body = await User.findOne({ where: { id: data.id } });
+});
+
+router.del('/api/delUser', async ctx => {
+    let {id} = ctx.query;
+    await User.destroy({ where: { id } });
+    ctx.body = { status: 200 }
 });
 
 app.use(router.routes());
