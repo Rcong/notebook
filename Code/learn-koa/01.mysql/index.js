@@ -59,6 +59,10 @@ router.del('/api/delUser', async ctx => {
     ctx.body = { status: 200 }
 });
 
+router.get('/api/userList', async(ctx, next) => {
+    ctx.body = await User.findAndCountAll();
+});
+
 app.use(router.routes());
 
 app.listen(8080 , () => {
