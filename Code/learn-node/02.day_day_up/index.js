@@ -5,9 +5,9 @@
 // const markdown = require( "markdown" ).markdown;
 // console.log( markdown.toHTML( "Hello *World*!" ) );
 
-const chalk = require('chalk');
+// const chalk = require('chalk');
 
-console.info(chalk.supportsColor);
+// console.info(chalk.supportsColor);
 
 // const log = console.log;
 
@@ -48,6 +48,39 @@ console.info(chalk.supportsColor);
 // log(chalk.keyword('orange')('Yay for orange colored text!'));
 // log(chalk.rgb(123, 45, 67).underline('Underlined reddish color'));
 // log(chalk.hex('#DEADED').bold('Bold gray!'));
+
+// const emoji = require('emoji');
+// console.info('😎', emoji.unifiedToHTML('😎'));
+
+const nodemailer = require('nodemailer');
+
+let transporter = nodemailer.createTransport({
+    host: 'smtp.exmail.qq.com',
+    port: 465, // SMTP 端口
+    secure: true, // 使用 SSL
+    auth: {
+        user: '*******@raycloud.com',
+        pass: '*****'
+    }
+});
+
+let mailOptions = {
+    from: '*******@raycloud.com', // 发件地址
+    to: '******@qq.com', // 收件列表
+    subject: 'Hello World', // 标题
+    //text和html两者只支持一种
+    text: 'Hello World ?', // 标题
+    html: '<b>Hello World ?</b>' // html 内容
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+        return console.info(error);
+    }
+    console.info('Message sent: ' + info.response);
+
+});
 
 
 
