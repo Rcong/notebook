@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const config = require('../config'); 
+const config = require('../config');
+const Path = require('path');
 
 let sequelize = new Sequelize(
     config.database,
@@ -12,11 +13,10 @@ let sequelize = new Sequelize(
     }
 );
 
-
 async function init (){
     await sequelize.sync();
     console.info('database init success');
 }
 
 module.exports = init(); 
-const Project = sequelize.import(__dirname + "/path/to/models/project")
+exports[user] = sequelize.import(Path.join(__dirname, 'user'));
