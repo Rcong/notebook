@@ -1,0 +1,22 @@
+{
+    "name": "Content Scripts Demo",
+    "version": "1.0",
+    "description": "Content Scripts Demo",
+    "browser_action": {
+        "default_title": "Content Scripts Demo",
+        "default_icon": "logo.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://doc.raycloud.com/display/qn/8.13~8.17"],
+            "js": ["script.js"]
+        }
+    ],
+    "manifest_version": 2,
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self';"
+}
