@@ -1,0 +1,11 @@
+{
+    "name": "popup Demo",
+    "version": "1.0",
+    "description": "popup Demo",
+    "browser_action": {
+        "default_title": "popup Demo",
+        "default_icon": "logo.png",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2
+}
