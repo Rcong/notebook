@@ -1,7 +1,7 @@
 let Router = require('koa-router');
 let router = new Router();
 let userService = require('../service/user');
-// let auth = require('../middleware/auth');
+let auth = require('../middleware/auth');
 
 router.post('/login', async ctx => {
     let {name, password} = ctx.query;
