@@ -1,11 +1,11 @@
-let resSuc = function(data = 'success') {
+let resSuc = function( data = 'success' ) {
     this.body = {
         status: 200,
         data
     }
 }
 
-let resFail = function(msg = 'fail') {
+let resFail = function( msg = 'fail' ) {
     if (msg instanceof Object && msg.status && msg.msg) {
         this.body = msg;
     } else {
