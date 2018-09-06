@@ -1,6 +1,6 @@
 let Router = require('koa-router');
 let router = new Router();
-let User = require('../model').user;
+let { User } = require('../model');
 let md5 = require('md5');
 
 router.post('/save', async ctx => {
@@ -10,7 +10,7 @@ router.post('/save', async ctx => {
         password: md5(password)
     }, {
         where: {
-            id: 1
+            name: name
         }
     })
     

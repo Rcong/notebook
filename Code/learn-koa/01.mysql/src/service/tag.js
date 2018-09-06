@@ -1,25 +1,19 @@
-const BlogTag = require('../model').tag;
-const BlogPostTag = require('../model').post_tag;
-const Op = require('../model').Op;
+const { Tag, PostTag, Op } = require('../model');
 
-exports.saveTag = async (tagData) => {
-    return await BlogTag.upsert(tagData);
+exports.saveTag = async tagData => {
+    return await Tag.upsert(tagData);
 };
 
 exports.tagList = async () => {
-    return await BlogTag.findAll();
+    return await Tag.findAll();
 }
 
-exports.deleteTag = async (id) => {
-    return await BlogTag.destroy({
-        where: {
-            id
-        }
-    });
+exports.deleteTag = async id => {
+    return await Tag.destroy({ where: { id } });
 }
 
-exports.tagListByIds = async (ids) => {
-    return await BlogTag.findAll({
+exports.tagListByIds = async ids => {
+    return await Tag.findAll({
         where: {
             id: {
                 [Op.in]: ids
@@ -29,7 +23,7 @@ exports.tagListByIds = async (ids) => {
 }
 
 exports.savePostTag = async (tagIdList, postId) => {
-    let postTagList = await BlogPostTag.findAll({
+    let postTagList = await PostTag.findAll({
         where: {postId}
     }) || [];
     let oldTagIdList = postTagList.map(postTag => '' + postTag.tagId);
@@ -46,7 +40,7 @@ exports.savePostTag = async (tagIdList, postId) => {
         }
     });
     if (addTagIdList.length) {
-        await BlogPostTag.bulkCreate(addTagIdList.map(tagId => {
+        await PostTag.bulkCreate(addTagIdList.map(tagId => {
             return {
                 tagId,
                 postId
@@ -54,7 +48,7 @@ exports.savePostTag = async (tagIdList, postId) => {
         }));
     }
     if (delTagIdList.length) {
-        await BlogPostTag.destroy({
+        await PostTag.destroy({
             where: {
                 postId,
                 tagId: {
@@ -65,18 +59,15 @@ exports.savePostTag = async (tagIdList, postId) => {
     }
 }
 
-exports.getPostTag = async (postId) => {
-    return await BlogPostTag.findAll({
+exports.getPostTag = async postId => {
+    return await PostTag.findAll({
         where: {
             postId
         }
     });
 }
 
-exports.getPostTagList = async (postId) => {
+exports.getPostTagList = async postId => {
     let postTagList = await exports.getPostTag(postId);
-    if (postTagList && postTagList.length) {
-        return await exports.tagListByIds(postTagList.map(t => t.tagId));
-    }
-    return [];
+    return postTagList && postTagList.length ? await exports.tagListByIds(postTagList.map(t => t.tagId)) : [];
 }

@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('../config');
 const Path = require('path');
+let Op = Sequelize.Op;
 
 let sequelize = new Sequelize(
     // config.database,
@@ -26,8 +27,9 @@ async function init (){
     console.info('database init success');
 }
 
-exports.init = init; 
-exports['user'] = sequelize.import(Path.join(__dirname, 'user'));
-exports['post'] = sequelize.import(Path.join(__dirname, 'post'));
-exports['tag'] = sequelize.import(Path.join(__dirname, 'tag'));
-// exports['user'] = sequelize.import(Path.join(__dirname, 'post_tag'));
+exports.init = init;
+exports.Op = Op;
+exports.user = sequelize.import(Path.join(__dirname, 'user'));
+exports.post = sequelize.import(Path.join(__dirname, 'post'));
+exports.tag = sequelize.import(Path.join(__dirname, 'tag'));
+exports.postTag = sequelize.import(Path.join(__dirname, 'post_tag'));

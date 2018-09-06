@@ -16,10 +16,7 @@ let resFail = function( msg = 'fail' ) {
     }
 }
 
-
 module.exports = async (ctx, next) => {
-    Object.assign(ctx, {
-        resFail, resSuc
-    });
+    Object.assign(ctx, { resFail, resSuc });
     await next();
 }
