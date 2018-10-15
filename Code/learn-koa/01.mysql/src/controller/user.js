@@ -1,35 +1,26 @@
-let Router = require('koa-router');
-let router = new Router();
-let { User } = require('../model');
-let md5 = require('md5');
+const BlogUser = require('../model').user;
+const md5 = require('md5');
 
-router.post('/save', async ctx => {
-    let { name, password } = ctx.request.body;
-    await User.update({
-        name: name,
-        password: md5(password)
-    }, {
+exports.login = async (ctx) => {
+    let {
+        name,
+        password
+    } = ctx.request.body;
+    let res = await BlogUser.findOne({
         where: {
-            name: name
+            name
         }
-    })
-    
-    ctx.resSuc();
-});
-
-router.post('/login', async ctx => {
-    let { name, password } = ctx.request.body;
-    let user = await User.findOne({ where: { name } });
-
-    if (!user) throw 'not find user';
-
-    if (user.password === md5(password)) {
-        ctx.session.user = { id: user.id, name: user.name }
+    });
+    if (!res) {
+        throw 'not find user';
+    }
+    if (res.password == md5(password)) {
+        ctx.session.user = {
+            id: res.id,
+            name: res.name
+        }
         ctx.resSuc();
         return ;
     }
-
     throw 'password error'
-});
-
-module.exports = router;
+}
