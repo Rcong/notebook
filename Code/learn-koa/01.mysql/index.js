@@ -29,8 +29,8 @@ const config = {
 app.use(cors({ credentials: true }));
 
 render(app, {
-    root: path.join(__dirname, 'view'),
-    layout: 'layout',
+    root: path.join(__dirname, 'src/view'),
+    layout: 'home',
     viewExt: 'html',
     cache: false,
     debug: false
@@ -43,7 +43,7 @@ app.use(async (ctx, next) => {
         await next()
     } catch (e) {
         ctx.resFail(e);
-        console.error(e, e.message, e.stack);
+        console.error('---', e, e.message, e.stack);
     }
 });
 
@@ -53,6 +53,6 @@ app.use(bodyparser());
 
 app.use(router.routes());
 
-app.listen(8080, () => {
+app.listen(7878, () => {
     console.log('start');
 });

@@ -29,7 +29,7 @@ async function init (){
 
 exports.init = init;
 exports.Op = Op;
-exports.user = sequelize.import(Path.join(__dirname, 'user'));
-exports.post = sequelize.import(Path.join(__dirname, 'post'));
-exports.tag = sequelize.import(Path.join(__dirname, 'tag'));
-exports.postTag = sequelize.import(Path.join(__dirname, 'post_tag'));
+exports.User = sequelize.import(Path.join(__dirname, 'user'));
+exports.Post = sequelize.import(Path.join(__dirname, 'post'));
+exports.Tag = sequelize.import(Path.join(__dirname, 'tag'));
+exports.PostTag = sequelize.import(Path.join(__dirname, 'post_tag'));
