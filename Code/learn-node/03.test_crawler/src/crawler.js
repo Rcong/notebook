@@ -19,7 +19,7 @@ let fetchRoleList = async() => {
         async.mapLimit(roleLiNodes, 5, async(node, callback) => {
             let avatar = $(node).find('img').attr('src');
             let roleUrl = $(node).find('a').attr('href');
-            let roleName = await fetchRoleName(roleUrl);
+            let { roleName } = await fetchRoleDetail(roleUrl);
             callback(null, { avatar, roleName, roleUrl });
         }, (err, res) => {
             resolve();
@@ -32,11 +32,13 @@ let fetchRoleList = async() => {
     return roleList;
 }
 
-// 爬取角色名字
-let fetchRoleName = async(roleUrl) => {
+// 爬取角色详情
+let fetchRoleDetail = async() => {
     let $ = await requestPromise({ uri: `http://wxwy.dragonest.com${roleUrl}`, transform: body => cheerio.load(body) });
     let roleName = $('.abstract .roleName').text();
-    return roleName;
+    let roleDesc = $('.abstract .roleText').text();
+    
+    return { roleName, roleDesc };
 }
 
 fetchRoleList();
