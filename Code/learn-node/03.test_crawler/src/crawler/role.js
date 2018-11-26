@@ -33,7 +33,7 @@ let fetchRoleList = async() => {
 }
 
 // 爬取角色详情
-let fetchRoleDetail = async() => {
+let fetchRoleDetail = async(roleUrl) => {
     let $ = await requestPromise({ uri: `http://wxwy.dragonest.com${roleUrl}`, transform: body => cheerio.load(body) });
     let roleName = $('.abstract .roleName').text();
     let roleDesc = $('.abstract .roleText').text();
@@ -42,3 +42,8 @@ let fetchRoleDetail = async() => {
 }
 
 fetchRoleList();
+
+export default {
+    fetchHeroList,
+    fetchHeroDetail
+}
