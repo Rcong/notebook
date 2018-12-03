@@ -24,7 +24,7 @@ let fetchRoleList = async() => {
             let avatar = $(node).find('img').attr('src');
             let roleId = $(node).find('a').attr('href').match(/\d+/g).join(',');
             let { roleName } = await fetchRoleDetail(roleId);
-            callback(null, { avatar, roleName, roleId });
+            callback(null, { roleId, roleName, avatar });
         }, (err, res) => {
             resolve();
             roleList = res;
@@ -40,9 +40,31 @@ let fetchRoleList = async() => {
 // 爬取角色详情
 let fetchRoleDetail = async(roleId) => {
     let $ = await requestPromise({ uri: `http://wxwy.dragonest.com/doc/role/id/${roleId}.html`, transform: body => cheerio.load(body) });
-    let roleName = $('.abstract .roleName').text();
-    let roleDesc = $('.abstract .roleText').text();
-    let roleDetail = { roleName, roleDesc, roleId };
+    let roleName = $('.abstract .roleName').text(),
+        roleDesc = $('.abstract .roleText').text(),
+        roleVoice = $('#music_voiceActor').attr('src') || '',
+        voiceActor = $('.abstract .voiceActor').text().slice(3), 
+        roleSkillNodes = $('.abstract2 li'),
+        strategyNodes = $('.abstract3 li'),
+        roleSkills = [],
+        strategy = [];
+
+    roleSkillNodes.each((index, node) => {
+        let skillName = ( $(node).find('.name span').text() || '' ).slice(0, -1),
+            skillIcon = $(node).find('.name .nameimg').attr('src'),
+            skillDesc = $(node).find('.text').text();
+        roleSkills.push({ skillName, skillIcon, skillDesc });
+    });
+
+    strategyNodes.each((index, node) => {
+        let strategyId = $(node).find('a').attr('href').match(/\d+/g).join(','),
+            strategyName = $(node).find('.name').text();
+        strategy.push({ strategyId, strategyName });
+    });
+
+    let roleDetail = { roleId, roleName, roleDesc, roleSkills, strategy };
+    voiceActor && ( roleDetail['voiceActor'] = voiceActor );   //存在角色的声音才存入
+    roleVoice && ( roleDetail['roleVoice'] = roleVoice );   //存在角色的声音才存入
 
     // 写入文件
     writeFileSync(dbPath(`roleDetail-${roleId}`), JSON.stringify(roleDetail, null, 2), 'utf-8');
