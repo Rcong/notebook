@@ -11,12 +11,14 @@ let fetchRoleList = async(ctx, next) => {
 }
 
 // 爬取角色详情
-let fetchRoleDetail = async(roleUrl) => {
-    let $ = await requestPromise({ uri: `http://wxwy.dragonest.com${roleUrl}`, transform: body => cheerio.load(body) });
-    let roleName = $('.abstract .roleName').text();
-    let roleDesc = $('.abstract .roleText').text();
-    
-    return { roleName, roleDesc };
+let fetchRoleDetail = async(ctx, next) => {
+    let { roleUrl } = ctx.params;
+    let data = await Role.fetchRoleDetail(roleUrl);
+    ctx.body = {
+        success: true,
+        status: 200,
+        data: data
+    }
 }
 
 export default {

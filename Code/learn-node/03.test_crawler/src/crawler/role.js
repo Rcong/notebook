@@ -41,9 +41,7 @@ let fetchRoleDetail = async(roleUrl) => {
     return { roleName, roleDesc };
 }
 
-fetchRoleList();
-
 export default {
-    fetchHeroList,
-    fetchHeroDetail
+    fetchRoleList,
+    fetchRoleDetail
 }
