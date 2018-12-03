@@ -1,8 +1,10 @@
 
 import Router from 'koa-router';
-import Role from './controller/role'
+import RoleCtrl from './controller/role'
 
 const router = new Router();
-router.get('/api/roleList', Role.fetchRoleList)
+
+router.get('/api/roleList', RoleCtrl.fetchRoleList);
+router.get('/api/roleDetail', RoleCtrl.fetchRoleDetail)
 
 export default router;

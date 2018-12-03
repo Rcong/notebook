@@ -9,7 +9,7 @@ app.use(async (ctx, next) => {
     try {
         await next()
     } catch (e) {
-        ctx.resFail(e);
+        // ctx.resFail(e);
         console.error('---', e, e.message, e.stack);
     }
 });
