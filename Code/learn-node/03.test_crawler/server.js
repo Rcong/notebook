@@ -15,6 +15,13 @@ app.use(async (ctx, next) => {
 });
 
 app.use(bodyParser());
-app.use(cors({ origin: '*' }));
+app.use(cors({
+    origin: 'http://localhost:3000',
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+}));
 app.use(router.routes());
 app.listen(7878, () => { console.info('start'); });

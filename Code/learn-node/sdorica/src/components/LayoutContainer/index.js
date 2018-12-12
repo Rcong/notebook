@@ -40,7 +40,7 @@ let layoutContainer = InnerComponent => class OuterComponent extends Component {
                             <Menu.Item key="strategyList">攻略列表</Menu.Item>
                         </Menu>
                     </Sider>
-                    <Layout>
+                    <Layout className="layout">
                         <Content className="content">
                             <InnerComponent {...props}/>
                         </Content>

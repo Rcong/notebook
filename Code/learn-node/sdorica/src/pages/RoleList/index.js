@@ -1,30 +1,24 @@
 import React from 'react';
-import { List, Select } from 'antd';
-// import style from './post.sass';
+import { List, Avatar, Icon } from 'antd';
+import './RoleList.less';
 import { Link } from 'react-router-dom';
 import Api from '@Api'
-
-const {Option} = Select;
-
 
 class RoleList extends React.Component {
 
     state = {
-        postList: []
+        isLoading: true,
+        roleList: []
     }
 
     async componentDidMount() {
-        let data = await Api.fetchRoleList();
-        debugger
+        let roleList = await Api.fetchRoleList();
+        this.setState({ roleList: roleList, isLoading: false });
     }
 
-    fetchRoleList() {
-        // Api.postList().then(res => {
-        //     console.log(res);
-        //     this.setState({
-        //         postList: res
-        //     });
-        // });
+    async fetchRoleList() {
+        let roleList = await Api.fetchRoleList();
+        this.setState(roleList);
     }
 
     delPost(postId) {
@@ -76,9 +70,41 @@ class RoleList extends React.Component {
     //     );
     // }
 
-    render() {
+    renderItem({ roleId, roleName, avatar, roleDesc }){
         return (
-            <div> RoleList </div>
+            <List.Item
+                key={roleId}
+                // actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+                extra={<img width={120} alt={roleDesc} src={avatar} />}
+            >
+                <List.Item.Meta
+                    avatar={<Avatar src={avatar} />}
+                    title={<span>{roleName}</span>}
+                    // description={roleDesc}
+                />
+                {roleDesc}
+            </List.Item>
+        )
+    }
+
+    render() {
+        let { roleList, isLoading } = this.state;
+        return (
+            <div className="roleListContainer">
+                <List
+                    loading={isLoading}
+                    itemLayout="vertical"
+                    size="large"
+                    pagination={{
+                        onChange: (page) => {
+                            console.log(page);
+                        },
+                        pageSize: 5,
+                    }}
+                    dataSource={roleList}
+                    renderItem={this.renderItem.bind(this)}
+                />
+            </div>
         );
     }
 

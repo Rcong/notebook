@@ -23,8 +23,8 @@ let fetchRoleList = async() => {
         async.mapLimit(roleLiNodes, 5, async(node, callback) => {
             let avatar = $(node).find('img').attr('src');
             let roleId = $(node).find('a').attr('href').match(/\d+/g).join(',');
-            let { roleName } = await fetchRoleDetail(roleId);
-            callback(null, { roleId, roleName, avatar });
+            let { roleName, roleDesc } = await fetchRoleDetail(roleId);
+            callback(null, { roleId, roleName, avatar, roleDesc });
         }, (err, res) => {
             resolve();
             roleList = res;
