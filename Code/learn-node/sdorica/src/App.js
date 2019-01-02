@@ -4,6 +4,7 @@ import asyncComponent from '@Utils/asyncComponent';
 import { layoutContainer } from '@Components/LayoutContainer';
 
 const RoleList = asyncComponent(() => import('@Pages/RoleList'));
+const RoleDetail = asyncComponent(() => import('@Pages/RoleDetail'));
 const StrategyList = asyncComponent(() => import('@Pages/StrategyList'));
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
             <Router>
                 <Switch>
                     <Route path="/roleList" component={layoutContainer(RoleList)}/>
+                    <Route path="/roleDetail/:roleId" component={layoutContainer(RoleDetail)}/>
                     <Route path="/strategyList" component={layoutContainer(StrategyList)}/>
                 </Switch>
             </Router>

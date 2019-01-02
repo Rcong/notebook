@@ -44,7 +44,7 @@ let layoutContainer = InnerComponent => class OuterComponent extends Component {
                         </Sider>
                         <Layout className="layout">
                             <Content>
-                                <div class="container">
+                                <div className="container">
                                     <InnerComponent {...props}/>
                                 </div>
                             </Content>
