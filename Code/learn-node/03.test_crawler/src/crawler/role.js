@@ -42,6 +42,7 @@ let fetchRoleDetail = async(roleId) => {
     let $ = await requestPromise({ uri: `http://wxwy.dragonest.com/doc/role/id/${roleId}.html`, transform: body => cheerio.load(body) });
     let roleName = $('.abstract .roleName').text(),
         roleDesc = $('.abstract .roleText').text(),
+        roleWallpaper = $('.roleBox .show-img').attr('src') || '', 
         roleVoice = $('#music_voiceActor').attr('src') || '',
         voiceActor = $('.abstract .voiceActor').text().slice(3), 
         roleSkillNodes = $('.abstract2 li'),
@@ -62,7 +63,7 @@ let fetchRoleDetail = async(roleId) => {
         strategy.push({ strategyId, strategyName });
     });
 
-    let roleDetail = { roleId, roleName, roleDesc, roleSkills, strategy };
+    let roleDetail = { roleId, roleName, roleWallpaper, roleDesc, roleSkills, strategy };
     voiceActor && ( roleDetail['voiceActor'] = voiceActor );   //存在角色的声音才存入
     roleVoice && ( roleDetail['roleVoice'] = roleVoice );   //存在角色的声音才存入
 
