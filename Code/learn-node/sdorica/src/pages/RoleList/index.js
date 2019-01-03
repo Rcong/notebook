@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, Avatar, Icon } from 'antd';
+import '@Pages/Common.less'
 import './RoleList.less';
 import { Link } from 'react-router-dom';
 import Api from '@Api'
