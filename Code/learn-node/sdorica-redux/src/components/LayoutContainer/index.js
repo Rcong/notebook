@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, LocaleProvider } from 'antd';
 import { Link } from 'react-router-dom';
-import styles from './LayoutContainer.scss';
+import styles from './LayoutContainer.less';
 import averter from "@Images/averter.png";
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 const { Content, Sider } = Layout

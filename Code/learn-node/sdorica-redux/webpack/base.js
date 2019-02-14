@@ -38,7 +38,7 @@ module.exports = {
                     }
                 }
             }, {
-                test: [/.css$|.scss$/],
+                test: [/.css$|.less$/],
                 use: [
                     isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
@@ -60,9 +60,18 @@ module.exports = {
                                 })
                             ]
                         }
-                    },
-                    'sass-loader'
-                ]
+                    }, {
+                        loader: 'less-loader', // compiles Less to CSS
+                        options: {
+                            modifyVars: {
+                                'primary-color': '#1DA57A',
+                                'link-color': '#1DA57A',
+                                'border-radius-base': '2px',
+                            },
+                            javascriptEnabled: true,
+                        },
+                    }
+                ],
             }, {
                 test: /\.(png|jpg|gif|svg)$/,
                 use: [
