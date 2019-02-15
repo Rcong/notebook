@@ -1,25 +1,26 @@
 {
-    "name": "03.test_crawler",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node index"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "async": "^2.6.1",
-        "babel-polyfill": "^6.26.0",
-        "babel-register": "^6.26.0",
-        "cheerio": "^1.0.0-rc.2",
-        "koa": "^2.6.2",
-        "koa-bodyparser": "^4.2.1",
-        "koa-cors": "0.0.16",
-        "koa-router": "^7.4.0",
-        "request-promise": "^4.2.2"
-    },
-    "devDependencies": {
-        "babel-preset-env": "^1.7.0"
-    }
+  "name": "03.test_crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "cheerio": "^1.0.0-rc.2",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-cors": "0.0.16",
+    "koa-router": "^7.4.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "request": "^2.88.0"
+  }
 }

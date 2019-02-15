@@ -11,9 +11,9 @@ module.exports = {
         app: './src/index.js'
     },
     output: {
-        publicPath: '/dist', // js引用路径或者CDN地址
+        publicPath: '/dist/', // js引用路径或者CDN地址
         // path: join(__dirname, 'dist'), // 打包文件的输出目录
-        path: path.resolve(__dirname, '../dist'),
+        path: path.join(__dirname, '../dist/'),
         filename: '[name]-[hash:5].js'
     },
     resolve: {
@@ -39,6 +39,7 @@ module.exports = {
                 }
             }, {
                 test: [/.css$|.less$/],
+                exclude: /(node_modules)/,
                 use: [
                     isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
@@ -49,18 +50,19 @@ module.exports = {
                             sourceMap: isDevelopment,
                         }
                     },
+                    // {
+                    //     loader: 'postcss-loader',
+                    //     options: {
+                    //         ident: 'postcss',
+                    //         plugins: loader => [
+                    //             // 可以配置多个插件
+                    //             require('autoprefixer')({
+                    //                 browsers: [' > 0.15% in CN ']
+                    //             })
+                    //         ]
+                    //     }
+                    // },
                     {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: loader => [
-                                // 可以配置多个插件
-                                require('autoprefixer')({
-                                    browsers: [' > 0.15% in CN ']
-                                })
-                            ]
-                        }
-                    }, {
                         loader: 'less-loader', // compiles Less to CSS
                         options: {
                             modifyVars: {
@@ -69,18 +71,34 @@ module.exports = {
                                 'border-radius-base': '2px',
                             },
                             javascriptEnabled: true,
-                        },
+                        }
+                    }
+                ],
+            },  {
+                test: [/.css$|.less$/],
+                exclude: /(src)/,
+                use: [
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'less-loader', // compiles Less to CSS
+                        options: {
+                            modifyVars: {
+                                'primary-color': '#1DA57A',
+                                'link-color': '#1DA57A',
+                                'border-radius-base': '2px',
+                            },
+                            javascriptEnabled: true,
+                        }
                     }
                 ],
             }, {
                 test: /\.(png|jpg|gif|svg)$/,
                 use: [
                     {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name]-[hash:5].[ext]',
-                            outputPath: '../assets/'
-                        }
+                        loader: 'file-loader'
                     }
                 ]
             }

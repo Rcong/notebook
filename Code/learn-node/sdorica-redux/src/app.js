@@ -13,7 +13,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/roleList" component={layoutContainer(RoleList)}/>
+                    <Route path="/" component={layoutContainer(RoleList)}/>
      
                 </Switch>
             </Router>

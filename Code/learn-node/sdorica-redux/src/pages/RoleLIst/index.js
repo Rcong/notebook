@@ -2,36 +2,29 @@ import React, { Component } from 'react';
 import { List, Avatar, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import styles from './RoleList.less';
+import { fetchRoleList, changePageSize } from './actions';
 
 class RoleList extends Component {
 
-    state = {
-        isLoading: true,
-        pageSize: 5,
-        roleList: []
+    constructor() {
+        super();
     }
 
-    async componentDidMount() {
-        let roleList = await Api.fetchRoleList();
-        this.setState({ roleList: roleList, isLoading: false });
-    }
-
-    async fetchRoleList() {
-        let roleList = await Api.fetchRoleList();
-        this.setState(roleList);
+    componentDidMount() {
+        this.props.dispatch(fetchRoleList());
     }
 
     renderItem({ roleId, roleName, avatar, roleDesc }){
         return (
             <List.Item
                 key={roleId}
-                actions={[<Link to={`/roleDetail/${roleId}`}><Icon className="mr8" type="smile"/>查看详情</Link>]}
+                actions={[<Link to={`/roleDetail/${roleId}`}><Icon className={styles.mr8} type="smile"/>查看详情</Link>]}
                 extra={<img width={120} alt={roleDesc} src={avatar} />}
             >
                 <List.Item.Meta
                     avatar={<Avatar src={avatar} />}
                     title={<span>{roleName}</span>}
-                    // description={roleDesc}
                 />
                 {roleDesc}
             </List.Item>
@@ -39,9 +32,10 @@ class RoleList extends Component {
     }
 
     render() {
-        let { roleList, isLoading, pageSize } = this.state;
+        let { roleList, isLoading, pageSize, dispatch } = this.props;
+
         return (
-            <div className="roleListContainer">
+            <div className={styles.roleListContainer}>
                 <List
                     loading={isLoading}
                     itemLayout="vertical"
@@ -51,7 +45,7 @@ class RoleList extends Component {
                         pageSize: pageSize,
                         pageSizeOptions: ['5', '10', '20'],
                         showTotal: (total, range) => `第 ${range[0]}-${range[1]} 个, 共 ${total} 个`,
-                        onShowSizeChange: (current, size) => this.setState({ pageSize: size })
+                        onShowSizeChange: (current, size) => dispatch(changePageSize(size))
                     }}
                     dataSource={roleList}
                     renderItem={this.renderItem.bind(this)}
@@ -62,9 +56,10 @@ class RoleList extends Component {
 
 }
 
-const mapStateToProps = store => ({
-    roleList: store.roleList
-});
+const mapStateToProps = ({ roleListReducer }) => {
+    let { roleList, isLoading, pageSize } = roleListReducer;
+    return { roleList, isLoading, pageSize };
+};
 
 // 连接 store，作为 props
 export default connect(mapStateToProps)(RoleList);

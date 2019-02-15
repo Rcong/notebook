@@ -5,14 +5,13 @@ const webpackBaseConfig = require('./base.js')
 
 module.exports = merge(webpackBaseConfig, {
     devServer: {
-        proxy: {
-            '/api': 'http://localhost:7878'
-        },
-        publicPath: '/dist/',
+        // proxy: {
+        //     '/api': 'http://localhost:7878'
+        // },
         open: true,
         openPage: 'dist/index.html',
         hot: true, // 热重载
-        contentBase: join(__dirname, 'dist'),
+        contentBase: './src/',
         port: 8080, // 本地服务器端口号
         compress: true, // 开启gzip
         overlay: true, // 如果代码出错，会在浏览器页面弹出“浮动层”。类似于 vue-cli 等脚手架

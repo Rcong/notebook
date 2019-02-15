@@ -16,7 +16,7 @@ app.use(async (ctx, next) => {
 
 app.use(bodyParser());
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:8080',
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
     credentials: true,
