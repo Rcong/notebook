@@ -13,10 +13,6 @@ let layoutContainer = InnerComponent => class OuterComponent extends Component {
         this.menuClick = this.menuClick.bind(this);
     }
 
-    componentDidMount() {
-
-    }
-
     menuClick (e) {
         this.props.history.replace(`/${e.key}`);
     }
@@ -57,4 +53,4 @@ let layoutContainer = InnerComponent => class OuterComponent extends Component {
     }
 }
 
-export { layoutContainer }
+export default layoutContainer

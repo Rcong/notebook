@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 import asyncComponent from '@Utils/asyncComponent';
-import { layoutContainer } from '@Components/LayoutContainer';
 
 const RoleList = asyncComponent(() => import('@Pages/RoleList'));
 // const RoleDetail = asyncComponent(() => import('@Pages/RoleDetail'));
@@ -13,8 +12,7 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/" component={layoutContainer(RoleList)}/>
-     
+                    <Route path="/" component={RoleList}/>
                 </Switch>
             </Router>
         );

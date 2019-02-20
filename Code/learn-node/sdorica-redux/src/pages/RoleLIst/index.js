@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './RoleList.less';
 import { fetchRoleList, changePageSize } from './actions';
+import layoutContainer from '@Components/LayoutContainer';
 
+@layoutContainer
 class RoleList extends Component {
 
     constructor() {
