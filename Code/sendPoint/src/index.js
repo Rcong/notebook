@@ -6,13 +6,36 @@
  *         ...
  *     }
  * }*/
-// 
+// export const track = partical => (target, key, descriptor) => {
 
-export let test = fn => (target, name, descriptor) {
-    const fn = descriptor.value;
+//     const value = function (...args) {
+//         return partical.call(this, descriptor.value, this).apply(this, args)
+//     }
+
+//     if (descriptor.initializer) {
+//         return propSet('initializer', function() {
+//                 const value = descriptor.initializer.apply(this);
+//                 return function (...args) {
+//                 return partical.call(this, value, this).apply(this, args);
+//             }
+//         }, descriptor);
+//     }
+
+//     return propSet('value', value, descriptor)
+// }
+
+
+export let test = fn => (target, name, descriptor) => {
+    
+    const oldFn = descriptor.value;
+
+    if (typeof fn !== 'function') {
+        console.info('error~~~');
+        return oldFn.apply(this, arguments);
+    }
 
     descriptor.value = function() {
-        let value = fn.apply(this, arguments);
-        msgChannel.publish(topic, value);
+        return oldFn.apply(this, arguments);
     };
+
 }
