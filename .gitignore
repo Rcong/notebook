@@ -2,6 +2,7 @@ node_modules
 .DS_Store
 .vscode
 .cache
+package-lock.json
 chromium
 pdf
 img
