@@ -27,6 +27,6 @@
     "express": "^4.16.2",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^1.12.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack-dev-server": ">=3.1.11"
   }
 }
