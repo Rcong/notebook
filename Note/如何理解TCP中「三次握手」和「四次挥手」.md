@@ -7,11 +7,11 @@
 1. 服务端响应
 1. 服务端断开TCP连接
 
-![持久连接](https://note.youdao.com/yws/api/personal/file/WEB843a5c002c8edd01ba9556339b98d3a1?method=download&shareKey=ade33a0cd56a8751a6ad23a4fd3c9708)
+![持久连接TCP](https://user-images.githubusercontent.com/9363528/54278392-30273980-45cd-11e9-8ab2-72e09537cf8e.png)
 
 HTTP的下层使用了 TCP/IP的协议，所以要了解「三次握手」和「四次挥手」细节的时候，TCP相关的知识是绕不开的。
 
-![OSI七层模型](https://note.youdao.com/yws/api/personal/file/WEB03425da831e3772d8efcd049d7b9473f?method=download&shareKey=8353551e9152d8b2538e7bd160826b58)
+![OSI七层模型](https://user-images.githubusercontent.com/9363528/54278430-4634fa00-45cd-11e9-83ea-e023eeb3b392.png)
 
 ## 什么是TCP协议
 
