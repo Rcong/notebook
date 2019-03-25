@@ -1,3 +1,5 @@
+'use strict';
+
 export const injectFunc = func => (target, name, descriptor) => {
 
     const rawFunc = descriptor.value || descriptor.initializer();
@@ -14,3 +16,24 @@ export const injectFunc = func => (target, name, descriptor) => {
 
     return descriptor;
 }
+
+export const debounce = (time = 500) => (target, name, descriptor) => {
+
+    const value = descriptor.value || descriptor.initializer();
+    
+    if (typeof value !== 'function') {
+        throw new TypeError('Can not decorate without function!');
+    }
+
+    descriptor.value = function(...args) {
+        
+        clearTimeout(value.id);
+        value.id = setTimeout(() => {
+            value.apply(this, args);
+        }, time)
+
+    };
+
+    return descriptor;
+
+};
