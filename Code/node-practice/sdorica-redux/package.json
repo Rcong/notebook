@@ -49,8 +49,7 @@
     "build": "rm -rf ./dist/ && cross-env NODE_ENV=production webpack --mode production --config webpack/prod.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git@git.superboss.cc:raycloudFrontEnd/qn-wd-wangwang.git"
+    "type": "git"
   },
   "browserslist": [
     "> 1%",
