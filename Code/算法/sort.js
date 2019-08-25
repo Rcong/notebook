@@ -29,21 +29,19 @@ export function quickSort(arr) {
 /**
 * 冒泡排序  
 * 解析：
-*   1、比较相邻的两个元素，如果前一个比后一个大，则交换位置
-*   2、第一轮的时候最后一个元素应该是最大的一个
-*   3、按照步骤一的方法进行相邻两个元素的比较，这个时候由于最后一个元素已经是最大的了，所以最后一个元素不用比较
+    1.比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+    2.对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+    3.针对所有的元素重复以上的步骤，除了最后一个。
 * 缺点：效率最低的排序，但也是最容易实现的排序算法
 */
-export function bubbleSort(arr) {
-    let length = arr.length;
-
-    for (let i = 0; i < length; i++) {
-        for (let j = i; j < length; j++) {
-            if (arr[i] > arr[j]) {
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+function bubbleSort(arr) {
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+        for (var j = 0; j < len - 1 - i; j++) {
+            if (arr[j] > arr[j+1]) {
+                [ arr[j], arr[j+1] ] = [ arr[j+1], arr[j] ]
             }
         }
     }
-
     return arr;
 }
