@@ -3,16 +3,16 @@ package main
 import (
 	"fmt"
 	"time"
-)
 
-// chapter_14 "github.com/Rcong/the-way-to-go/exercise/chapter_14"
+	chapter_14 "github.com/Rcong/the-way-to-go/exercise/chapter_14"
+)
 
 func main() {
 	// examples.Goroutine2()
 	// examples.ChannelBlock()
 	// examples.ChannelExample_00()
-	// chapter_14.Channel_block3()
-	// chapter_14.Channel_idiom()
+	chapter_14.Channel_block3()
+	chapter_14.Channel_idiom()
 
 	// 2个管道
 	output1 := make(chan string)
